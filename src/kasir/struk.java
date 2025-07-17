@@ -36,9 +36,9 @@ public class struk extends javax.swing.JDialog {
         
         panelItem.removeAll();
         panelItem.setLayout(new BoxLayout(panelItem, BoxLayout.PAGE_AXIS));
-        panelItem.setPreferredSize(null);
-        panelItem.setMaximumSize(null);
-        panelItem.setMinimumSize(null);
+        panelItem.revalidate();
+        panelItem.repaint();
+        
 
         lHeader.setText("Kopi'ah Ireng");
         lTanggal.setText("Waktu :");
@@ -51,46 +51,54 @@ public class struk extends javax.swing.JDialog {
 
         int baris = model.getRowCount();
 
-    for (int i = 0; i < baris; i++) {
-        String nama = model.getValueAt(i, 0).toString();
-        int harga = parseRupiah(model.getValueAt(i, 1).toString());
-        int qty = Integer.parseInt(model.getValueAt(i, 2).toString());
-        int subtotal = harga * qty;
+        for (int i = 0; i < baris; i++) {
+            String nama = model.getValueAt(i, 0).toString();
+            int harga = parseRupiah(model.getValueAt(i, 1).toString());
+            int qty = Integer.parseInt(model.getValueAt(i, 2).toString());
+            int subtotal = harga * qty;
 
-        // Baris 1: Nama menu
-        JLabel labelNama = new JLabel(nama);
-        labelNama.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
-        labelNama.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panelItem.add(labelNama);
+            // Panel untuk 1 item, berisi 2 baris
+            JPanel panelItemBaru = new JPanel();
+            panelItemBaru.setLayout(new BoxLayout(panelItemBaru, BoxLayout.Y_AXIS));
+            panelItemBaru.setBackground(java.awt.Color.WHITE);
+            panelItemBaru.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        // Baris 2: harga x qty (kiri) dan subtotal (kanan)
-        JPanel barisDetail = new JPanel(new java.awt.BorderLayout());
-        barisDetail.setBackground(java.awt.Color.WHITE);
-        barisDetail.setAlignmentX(Component.LEFT_ALIGNMENT);
+            // Baris 1: Nama menu
+            JLabel labelNama = new JLabel(nama);
+            labelNama.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+            labelNama.setAlignmentX(Component.LEFT_ALIGNMENT);
+            labelNama.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)); // NO padding
 
-        JLabel labelKiri = new JLabel(formatRupiah(harga) + " x " + qty);
-        JLabel labelKanan = new JLabel(formatRupiah(subtotal));
-        labelKanan.setHorizontalAlignment(SwingConstants.RIGHT);
+            // Baris 2: Detail harga x qty dan subtotal
+            JPanel barisDetail = new JPanel(new java.awt.BorderLayout());
+            barisDetail.setBackground(java.awt.Color.WHITE);
+            barisDetail.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        labelKiri.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
-        labelKanan.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+            JLabel labelKiri = new JLabel(formatRupiah(harga) + " x " + qty);
+            JLabel labelKanan = new JLabel(formatRupiah(subtotal));
+            labelKanan.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        barisDetail.add(labelKiri, java.awt.BorderLayout.WEST);
-        barisDetail.add(labelKanan, java.awt.BorderLayout.EAST);
+            labelKiri.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+            labelKanan.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
 
-        panelItem.add(barisDetail);
-        panelItem.add(Box.createVerticalStrut(5));
-    }
-        panelItem.revalidate();
-        panelItem.repaint();
-        
-    
-            lTotal.setText("Total   :");
-            lTotalValue.setText(formatRupiah(parseRupiah(total)));
-            lBayar.setText("Bayar   :");
-            lBayarValue.setText(formatRupiah(parseRupiah(bayar)));
-            lKembali.setText("Kembali :");
-            lKembaliValue.setText(formatRupiah(parseRupiah(kembali)));
+            barisDetail.add(labelKiri, java.awt.BorderLayout.WEST);
+            barisDetail.add(labelKanan, java.awt.BorderLayout.EAST);
+
+            // Tambahkan ke panelItemBaru
+            panelItemBaru.add(labelNama);
+            panelItemBaru.add(barisDetail);
+
+            // Tambahkan ke panelItem utama
+            panelItem.add(panelItemBaru);
+            panelItem.add(Box.createVerticalStrut(3));
+        }
+
+                lTotal.setText("Total   :");
+                lTotalValue.setText(formatRupiah(parseRupiah(total)));
+                lBayar.setText("Bayar   :");
+                lBayarValue.setText(formatRupiah(parseRupiah(bayar)));
+                lKembali.setText("Kembali :");
+                lKembaliValue.setText(formatRupiah(parseRupiah(kembali)));
     }
     private String formatRupiah(int angka) {
         Locale indonesia = new Locale("id", "ID");
@@ -219,8 +227,17 @@ public class struk extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tAlamat, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,32 +250,22 @@ public class struk extends javax.swing.JDialog {
                                 .addComponent(lKembaliValue, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lBayarValue, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(lPemisah4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(panelItem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lPemisah6)
-                        .addComponent(lPemisah3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lPemiash2)
-                        .addComponent(lNamaMenuQtyHarga)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lPemiash1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lTanggalValue))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lCostumerValue, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(15, 15, 15))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tAlamat, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lPemisah6)
+                    .addComponent(lPemisah3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lPemiash2)
+                    .addComponent(lNamaMenuQtyHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lPemiash1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(lTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lTanggalValue))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(lCostumer, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(lCostumerValue, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(panelItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,8 +289,8 @@ public class struk extends javax.swing.JDialog {
                 .addComponent(lNamaMenuQtyHarga)
                 .addGap(0, 0, 0)
                 .addComponent(lPemisah3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelItem, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(panelItem, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(lPemisah4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -304,7 +311,7 @@ public class struk extends javax.swing.JDialog {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel2)
-                .addGap(0, 0, 0))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         panelItem.getAccessibleContext().setAccessibleDescription("");
@@ -340,12 +347,12 @@ public class struk extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCetak)
                     .addComponent(btnKembali))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();

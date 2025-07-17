@@ -29,12 +29,12 @@ public class Menu1 extends javax.swing.JPanel {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT id_menu FROM menu ORDER BY id_menu DESC LIMIT 1");
 
-            String kodeBaru = "M001"; // Default kode awal
+            String kodeBaru = "M001"; 
 
             if (rs.next()) {
-                String kodeLama = rs.getString("id_menu"); // contoh: M005
-                int angka = Integer.parseInt(kodeLama.substring(1)) + 1; // ambil angka: 5 + 1
-                kodeBaru = String.format("M%03d", angka); // hasil: M006
+                String kodeLama = rs.getString("id_menu"); 
+                int angka = Integer.parseInt(kodeLama.substring(1)) + 1; 
+                kodeBaru = String.format("M%03d", angka); 
             }
 
             tKodeMenu.setText(kodeBaru);
@@ -75,7 +75,7 @@ public class Menu1 extends javax.swing.JPanel {
                 String kategori = rs.getString("nama_kategori");
                 int hargaInt = rs.getInt("harga");
 
-                String harga = formatRupiah(hargaInt); // ← format harga ke Rupiah
+                String harga = formatRupiah(hargaInt); 
 
                 Object[] baris = {kode, nama, kategori, harga};
                 model.addRow(baris);
@@ -361,7 +361,7 @@ public class Menu1 extends javax.swing.JPanel {
         tNamaMenu.setText(tblMenu.getValueAt(row, 1).toString());
         cKategori.setSelectedItem(tblMenu.getValueAt(row, 2).toString());
 
-        String hargaStr = tblMenu.getValueAt(row, 3).toString().replaceAll("[^\\d]", ""); // buang Rp, titik
+        String hargaStr = tblMenu.getValueAt(row, 3).toString().replaceAll("[^\\d]", ""); 
         int harga = Integer.parseInt(hargaStr);
         tHarga.setText(formatRupiah(harga));
     }//GEN-LAST:event_tblMenuMouseClicked
@@ -416,7 +416,7 @@ public class Menu1 extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(null, "Menu berhasil ditambahkan!");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Data gagal disimpan!\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Menu gagal disimpan!\n" + e.getMessage());
         }
 
         load_tabel_menu();
@@ -444,7 +444,6 @@ public class Menu1 extends javax.swing.JPanel {
             return;
         }
 
-        // Mapping kategori ke id_kategori
         String idKategori;
         if (kategori.equals("Minuman")) {
             idKategori = "K001";
@@ -460,9 +459,9 @@ public class Menu1 extends javax.swing.JPanel {
             Connection conn = koneksi.konek();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, namaMenu);
-            ps.setString(2, idKategori); // Gunakan id_kategori yang sesuai
+            ps.setString(2, idKategori); 
             ps.setInt(3, harga);
-            ps.setString(4, kodeMenu); // Perbaikan: setString(4) bukan setString(5)
+            ps.setString(4, kodeMenu); 
 
             int updated = ps.executeUpdate();
             if (updated > 0) {
@@ -471,7 +470,7 @@ public class Menu1 extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Kode menu tidak ditemukan!");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Data gagal diubah\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Menu gagal diubah\n" + e.getMessage());
         }
 
         load_tabel_menu(); 
@@ -483,14 +482,14 @@ public class Menu1 extends javax.swing.JPanel {
         String kodeMenu = tKodeMenu.getText();
 
         if (kodeMenu.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Pilih data yang ingin dihapus terlebih dahulu!");
+            JOptionPane.showMessageDialog(null, "Pilih menu yang ingin dihapus terlebih dahulu!");
             return;
         }
 
         // Konfirmasi sebelum hapus
         int konfirmasi = JOptionPane.showConfirmDialog(
             null,
-            "Yakin ingin menghapus data ini?",
+            "Yakin ingin menghapus menu ini?",
             "Konfirmasi Hapus",
             JOptionPane.OK_CANCEL_OPTION
         );
@@ -508,7 +507,7 @@ public class Menu1 extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Menu gagal dihapus!\n" + sQLException.getMessage());
             }
 
-            load_tabel_menu(); // refresh tabel menu
+            load_tabel_menu(); 
             reset();
         } 
     }//GEN-LAST:event_btnHapusActionPerformed

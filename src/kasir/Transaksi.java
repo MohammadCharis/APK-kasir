@@ -1,8 +1,7 @@
 package kasir;
 
-
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +14,7 @@ import java.util.Date;
 import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import kasir.koneksi;
 import kasir.struk;
 
@@ -28,14 +28,22 @@ public class Transaksi extends javax.swing.JPanel {
         inisialisasiTabel();
         kunciTextField();
         
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        tTanggal.setText(sdf.format(new Date()));
+        
         
     tJumlahBayar.addKeyListener(new java.awt.event.KeyAdapter() {
         public void keyReleased(java.awt.event.KeyEvent evt) {
             tJumlahBayarKeyReleased(evt);
         }
     });
+    
+    Timer timer = new Timer(1000, new ActionListener() {
+    
+        public void actionPerformed(ActionEvent e) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            tTanggal.setText(sdf.format(new java.util.Date()));
+        }
+        });
+    timer.start();
     
     }   
     void reset(){       
@@ -535,7 +543,7 @@ public class Transaksi extends javax.swing.JPanel {
             String jumlahText = tJumlahBeli.getText().replaceAll("[^\\d]", "");
 
             if (nama.isEmpty() || hargaText.isEmpty() || jumlahText.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Tidak ada menu yang anda tambahkan", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -553,7 +561,7 @@ public class Transaksi extends javax.swing.JPanel {
             tJumlahBeli.setText("");
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Pastikan data yang dimasukkan valid!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Masih ada yang kosong\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnTamnbahActionPerformed
 
@@ -669,7 +677,7 @@ public class Transaksi extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Gagal Mengubah Data!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Pilih item di tabel untuk diubah!");
+            JOptionPane.showMessageDialog(this, "Pilih menu di tabel untuk diubah!");
         }
     }//GEN-LAST:event_btnUbahActionPerformed
 
@@ -680,7 +688,7 @@ public class Transaksi extends javax.swing.JPanel {
             model.removeRow(baris);
             hitungTotal();
             // Clear field setelah hapus, kecuali ada baris lain yang dipilih
-            if (tblDetailTransaksi.getSelectedRow() == -1) { // Nggak ada baris yang dipilih
+            if (tblDetailTransaksi.getSelectedRow() == -1) { // tidak ada baris yang dipilih
                 tNamaMenu.setText(null);
                 tHarga.setText(null);
                 tJumlahBeli.setText(null);
@@ -690,7 +698,7 @@ public class Transaksi extends javax.swing.JPanel {
                 tKembalian.setText(null);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Pilih salah satu item yang akan dihapus!");
+            JOptionPane.showMessageDialog(this, "Pilih salah satu menu yang akan dihapus!");
         }
         
     }//GEN-LAST:event_btnHapusActionPerformed
