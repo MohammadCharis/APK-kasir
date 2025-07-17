@@ -45,10 +45,10 @@ public class Menu1 extends javax.swing.JPanel {
     
     void reset (){
         
-        tKodeMenu.setText(null);
         tNamaMenu.setText(null);
         cKategori.setSelectedItem(null);
         tHarga.setText(null);
+        kodeMenu();
         
     
     }
@@ -207,6 +207,11 @@ public class Menu1 extends javax.swing.JPanel {
         tHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tHargaActionPerformed(evt);
+            }
+        });
+        tHarga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tHargaKeyReleased(evt);
             }
         });
 
@@ -511,6 +516,21 @@ public class Menu1 extends javax.swing.JPanel {
     private void cKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cKategoriActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cKategoriActionPerformed
+
+    private void tHargaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tHargaKeyReleased
+        // TODO add your handling code here:
+         String input = tHarga.getText().replaceAll("[^\\d]", "");
+        if (!input.isEmpty()) {
+            try {
+                int angka = Integer.parseInt(input);
+                tHarga.setText(formatRupiah(angka));
+            } catch (NumberFormatException e) {
+                tHarga.setText("");
+            }
+        } else {
+            tHarga.setText("");
+        }
+    }//GEN-LAST:event_tHargaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
