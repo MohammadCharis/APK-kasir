@@ -8,10 +8,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 
-/**
- *
- * @author LENOVO
- */
 public class Menu1 extends javax.swing.JPanel {
 
     
@@ -49,8 +45,6 @@ public class Menu1 extends javax.swing.JPanel {
         cKategori.setSelectedItem(null);
         tHarga.setText(null);
         kodeMenu();
-        
-    
     }
     
     void load_tabel_menu() {
@@ -59,11 +53,9 @@ public class Menu1 extends javax.swing.JPanel {
         model.addColumn("Nama Menu");
         model.addColumn("Kategori");
         model.addColumn("Harga");
-
-        String sql = "SELECT m.id_menu, m.nama_menu, km.nama_kategori, m.harga " +
+                String sql = "SELECT m.id_menu, m.nama_menu, km.nama_kategori, m.harga " +
                      "FROM menu m " +
                      "JOIN kategori_menu km ON m.id_kategori = km.id_kategori";
-
         try {
             Connection conn = koneksi.konek();
             Statement st = conn.createStatement();
@@ -129,7 +121,7 @@ public class Menu1 extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasir/foto3.png"))); // NOI18N
-        jLabel1.setText("Menu");
+        jLabel1.setText("Produk");
         jLabel1.setIconTextGap(20);
 
         lbClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasir/icons8-close-40.png"))); // NOI18N
@@ -171,12 +163,14 @@ public class Menu1 extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Kategori");
 
+        tKodeMenu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tKodeMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tKodeMenuActionPerformed(evt);
             }
         });
 
+        tblMenu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -188,6 +182,7 @@ public class Menu1 extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblMenu.setSelectionBackground(new java.awt.Color(154, 70, 30));
         tblMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMenuMouseClicked(evt);
@@ -195,6 +190,7 @@ public class Menu1 extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblMenu);
 
+        tNamaMenu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tNamaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tNamaMenuActionPerformed(evt);
@@ -204,6 +200,7 @@ public class Menu1 extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Harga");
 
+        tHarga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tHargaActionPerformed(evt);
@@ -263,6 +260,7 @@ public class Menu1 extends javax.swing.JPanel {
             }
         });
 
+        cKategori.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minuman", "Tusukan" }));
         cKategori.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -485,7 +483,6 @@ public class Menu1 extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Pilih menu yang ingin dihapus terlebih dahulu!");
             return;
         }
-
         // Konfirmasi sebelum hapus
         int konfirmasi = JOptionPane.showConfirmDialog(
             null,
@@ -493,7 +490,6 @@ public class Menu1 extends javax.swing.JPanel {
             "Konfirmasi Hapus",
             JOptionPane.OK_CANCEL_OPTION
         );
-
         if (konfirmasi == JOptionPane.OK_OPTION) {
             String sql = "DELETE FROM menu WHERE id_menu=?";
             try {
@@ -506,7 +502,6 @@ public class Menu1 extends javax.swing.JPanel {
             } catch (SQLException sQLException) {
                 JOptionPane.showMessageDialog(null, "Menu gagal dihapus!\n" + sQLException.getMessage());
             }
-
             load_tabel_menu(); 
             reset();
         } 
@@ -554,7 +549,8 @@ public class Menu1 extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     
     public String formatRupiah(int angka) {
-        java.text.DecimalFormatSymbols symbols = new java.text.DecimalFormatSymbols(new java.util.Locale("id", "ID"));
+        java.text.DecimalFormatSymbols symbols = new java.text.DecimalFormatSymbols
+        (new java.util.Locale("id", "ID"));
         symbols.setCurrencySymbol("Rp");
         symbols.setMonetaryDecimalSeparator(',');
         symbols.setGroupingSeparator('.');

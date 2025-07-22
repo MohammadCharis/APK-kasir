@@ -543,7 +543,8 @@ public class Transaksi extends javax.swing.JPanel {
             String jumlahText = tJumlahBeli.getText().replaceAll("[^\\d]", "");
 
             if (nama.isEmpty() || hargaText.isEmpty() || jumlahText.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Tidak ada menu yang anda tambahkan", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Tidak ada menu yang anda tambahkan", "Error", 
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -561,7 +562,8 @@ public class Transaksi extends javax.swing.JPanel {
             tJumlahBeli.setText("");
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Masih ada yang kosong\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Masih ada yang kosong\n" + e.getMessage(), "Error", 
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnTamnbahActionPerformed
 
@@ -572,17 +574,20 @@ public class Transaksi extends javax.swing.JPanel {
             int bayar = parseRupiah(tJumlahBayar.getText());
 
             if (total == 0 || bayar == 0) {
-                JOptionPane.showMessageDialog(this, "Total harga atau jumlah bayar tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Total harga atau jumlah bayar tidak boleh kosong!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (bayar < total) {
-                JOptionPane.showMessageDialog(this, "Jumlah bayar kurang dari total harga!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Jumlah bayar kurang dari total harga!", "Error", 
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             Connection conn = koneksi.konek();
-            String sql = "INSERT INTO transaksi (tanggal, total, bayar, kembali, nama_customer) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO transaksi (tanggal, total, bayar, kembali, nama_customer) VALUES "
+                    + "(?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, tTanggal.getText());
             ps.setInt(2, total);
@@ -605,7 +610,8 @@ public class Transaksi extends javax.swing.JPanel {
                 int subtotal = parseRupiah(model.getValueAt(i, 3).toString());
 
 
-                String sqlDetail = "INSERT INTO detail_transaksi (id_transaksi, id_menu, jumlah_beli, harga_tx, subtotal) VALUES (?, ?, ?, ?, ?)";
+                String sqlDetail = "INSERT INTO detail_transaksi (id_transaksi, id_menu, jumlah_beli, "
+                        + "harga_tx, subtotal) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement psDetail = conn.prepareStatement(sqlDetail);
                 psDetail.setInt(1, idTransaksi);
                 psDetail.setString(2, idMenu);
@@ -630,7 +636,8 @@ public class Transaksi extends javax.swing.JPanel {
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyimpan transaksi: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyimpan transaksi: " + e.getMessage(), 
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBayarActionPerformed
     String ambilIdMenuDariNama(String namaMenu) {
@@ -643,11 +650,13 @@ public class Transaksi extends javax.swing.JPanel {
             if (rs.next()) {
                 return rs.getString("id_menu");
             } else {
-                JOptionPane.showMessageDialog(this, "Menu '" + namaMenu + "' tidak ditemukan di database!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Menu '" + namaMenu + "' tidak ditemukan di database!", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error saat mengambil ID menu: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error saat mengambil ID menu: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
             return null;
         }
@@ -674,7 +683,8 @@ public class Transaksi extends javax.swing.JPanel {
                 hitungTotal();
                 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Gagal Mengubah Data!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Gagal Mengubah Data!\n" + e.getMessage(), 
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Pilih menu di tabel untuk diubah!");

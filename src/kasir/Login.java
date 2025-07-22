@@ -136,45 +136,34 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        String username = tUsername.getText();
+        String username = tUsername.getText();       
+        String password  = tpPassword.getText();        
         
-        String password  = tpPassword.getText();
-        
-        
-    if (username.length()!= 0 && password.length()!=0) {
-        
-         try {
-            String sql = "SELECT * FROM user WHERE username=? AND password=md5 (?)";
-            
-            Connection con = koneksi.konek();
-            
-            PreparedStatement ps = con.prepareStatement(sql);
-            
-            ps.setString(1, username);
-            
-            ps.setString(2, password);
-            
-            ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()) {
-                dispose();
-                
-                new dashboard().setVisible(true);
-            } else {
-                
-                JOptionPane.showMessageDialog (null, "Username/password salah");
-            }
-        } catch (SQLException sQLException) {
-            JOptionPane.showMessageDialog(null, sQLException.getMessage());
-        }
-            
-    }else {
-        JOptionPane.showMessageDialog(null, "Username? password tidak boleh kosong");
-    } 
+        if (username.length()!= 0 && password.length()!=0) {        
+            try {
+                String sql = "SELECT * FROM user WHERE username=? AND password=md5 (?)";           
+                Connection con = koneksi.konek();            
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    dispose();
+                    new dashboard().setVisible(true);
+                } else {    
+                    JOptionPane.showMessageDialog (null, "Username/password salah");
+                }
+            } catch (SQLException sQLException) {
+                JOptionPane.showMessageDialog(null, sQLException.getMessage());
+            }       
+        }else {
+            JOptionPane.showMessageDialog(null, "Username? password tidak boleh kosong");
+        } 
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void tpPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tpPasswordActionPerformed

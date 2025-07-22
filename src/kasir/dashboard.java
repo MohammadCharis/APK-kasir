@@ -7,15 +7,8 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 
 
-/**
- *
- * @author LENOVO
- */
 public class dashboard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form dashboard
-     */
     public dashboard() {
         initComponents();
         
@@ -46,7 +39,7 @@ public class dashboard extends javax.swing.JFrame {
         btnTutup = new javax.swing.JButton();
         kontenPanel = new javax.swing.JPanel();
         sidebar = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnDasbor = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnTransaksi = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
@@ -106,17 +99,17 @@ public class dashboard extends javax.swing.JFrame {
 
         sidebar.setBackground(new java.awt.Color(154, 70, 30));
 
-        jButton1.setBackground(new java.awt.Color(154, 70, 30));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasir/icons8-dashboard-30.png"))); // NOI18N
-        jButton1.setText("Dashboard");
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 15, 1, 1));
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        jButton1.setIconTextGap(15);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDasbor.setBackground(new java.awt.Color(154, 70, 30));
+        btnDasbor.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnDasbor.setForeground(new java.awt.Color(255, 255, 255));
+        btnDasbor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasir/icons8-dashboard-30.png"))); // NOI18N
+        btnDasbor.setText("Dashboard");
+        btnDasbor.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 15, 1, 1));
+        btnDasbor.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnDasbor.setIconTextGap(15);
+        btnDasbor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDasborActionPerformed(evt);
             }
         });
 
@@ -140,7 +133,7 @@ public class dashboard extends javax.swing.JFrame {
         btnMenu.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnMenu.setForeground(new java.awt.Color(255, 255, 255));
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasir/icons8-coffee-30.png"))); // NOI18N
-        btnMenu.setText("Menu");
+        btnMenu.setText("Produk");
         btnMenu.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 15, 1, 1));
         btnMenu.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnMenu.setIconTextGap(15);
@@ -182,7 +175,7 @@ public class dashboard extends javax.swing.JFrame {
         sidebar.setLayout(sidebarLayout);
         sidebarLayout.setHorizontalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+            .addComponent(btnDasbor, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
             .addComponent(btnTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAbout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -197,7 +190,7 @@ public class dashboard extends javax.swing.JFrame {
             .addGroup(sidebarLayout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDasbor, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -231,13 +224,13 @@ public class dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDasborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDasborActionPerformed
         // TODO add your handling code here:
         kontenPanel.removeAll();
         kontenPanel.add(new dasbor());
         kontenPanel.repaint();
         kontenPanel.revalidate();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnDasborActionPerformed
 
     private void btnTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaksiActionPerformed
         // TODO add your handling code here:
@@ -309,11 +302,11 @@ public class dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbout;
+    private javax.swing.JButton btnDasbor;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnTransaksi;
     private javax.swing.JButton btnTutup;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
